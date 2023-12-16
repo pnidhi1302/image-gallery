@@ -1,0 +1,35 @@
+
+
+  .slider-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 10px;
+  }
+
+  .images-container {
+    display: flex;
+    scroll-behavior: smooth;
+    transition: scroll 0.3s ease-in-out;
+    overflow: hidden;
+    width: 400px
+  }
+  
+  .image {
+    width: 150px;
+    height: 150px;
+    margin: 5px;
+    border-radius: 8px;
+    border: 1px solid black;
+    transition: transform .2s;
+  }
+
+  .next-btn {
+    margin-left: 5px;
+  }
+
+  .image:hover, .image-transform {
+    transform: scale(1.05);
+  }
+
+  
