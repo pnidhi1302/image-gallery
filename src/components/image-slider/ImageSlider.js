@@ -1,9 +1,31 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import "./ImageSlider.css";
 
 export default function ImageSlider({ images = [], selectedImage }) {
   const [activeImageNum, setCurrent] = useState(selectedImage.index);
+
+  useEffect(() => {
+    const downHandler = ({ key }) => {
+      if (key === "ArrowRight") {
+        nextSlide();
+      }
+    };
+
+    const upHandler = ({ key }) => {
+      if (key === "ArrowLeft") {
+        prevSlide();
+      }
+    };
+
+    window.addEventListener("keydown", downHandler);
+    window.addEventListener("keyup", upHandler);
+
+    return () => {
+      window.removeEventListener("keydown", downHandler);
+      window.removeEventListener("keyup", upHandler);
+    };
+  }, [activeImageNum]);
 
   const length = useMemo(() => images?.length, [images]);
 
@@ -21,17 +43,17 @@ export default function ImageSlider({ images = [], selectedImage }) {
 
   return (
     <div className="slider-container">
-      <Button onClick={prevSlide} disabled={activeImageNum === 0}>
-        {"<"}
-      </Button>
+      <Button onClick={prevSlide}>{"<"}</Button>
       <div className="images-container">
         {images.map((currentSlide, ind) => {
           return (
             <React.Fragment key={ind}>
-              {(ind >= activeImageNum &&
+              {ind >= activeImageNum && (
                 <img
                   src={currentSlide.thumbnail}
-                  className={`image ${ind === selectedImage.index ? "image-transform" : ""}`}
+                  className={`image ${
+                    ind === selectedImage.index ? "image-transform" : ""
+                  }`}
                   alt={currentSlide.title}
                 />
               )}
@@ -39,11 +61,7 @@ export default function ImageSlider({ images = [], selectedImage }) {
           );
         })}
       </div>
-      <Button
-        onClick={nextSlide}
-        disabled={activeImageNum === images.length - 1}
-        className="next-btn"
-      >
+      <Button onClick={nextSlide} className="next-btn">
         {">"}
       </Button>
     </div>
