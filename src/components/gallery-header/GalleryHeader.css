@@ -5,6 +5,7 @@
 .filter-btn {
     margin-left: 5px;
     margin-top: 5px;
+    border-radius: 20px;
 }
 
 .filter-container {

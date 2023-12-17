@@ -28,9 +28,7 @@ export default function ImageSlider({ images = [], selectedImage }) {
         {images.map((currentSlide, ind) => {
           return (
             <React.Fragment key={ind}>
-              {(ind === activeImageNum ||
-                ind === activeImageNum + 1 ||
-                ind === activeImageNum + 2) && (
+              {(ind >= activeImageNum &&
                 <img
                   src={currentSlide.thumbnail}
                   className={`image ${ind === selectedImage.index ? "image-transform" : ""}`}

@@ -3,11 +3,20 @@ import "./GalleryHeader.css";
 import { data } from "../../data/data";
 import Button from "react-bootstrap/Button";
 
-export default function GalleryHeader({ filterImageData, resetImageFilter }) {
+export const ALL_FILTER = "All";
+
+export default function GalleryHeader({ filterImageData }) {
+  const [selectedFilter, setSelectedFilter] = React.useState(ALL_FILTER);
+
   const getFilters = useMemo(() => {
     const setCategories = new Set(data.map((item) => item.category));
-    return [...setCategories];
+    return [ALL_FILTER, ...setCategories];
   }, []);
+
+  const handleFilterClick = (selectedItem) => {
+    setSelectedFilter(selectedItem);
+    filterImageData(selectedItem);
+  };
 
   return (
     <div className="header-container">
@@ -17,22 +26,13 @@ export default function GalleryHeader({ filterImageData, resetImageFilter }) {
         web designs
       </span>
       <div className="filter-container">
-        <Button
-          variant="outline-primary"
-          className="filter-btn"
-          onClick={() => {
-            resetImageFilter();
-          }}
-        >
-          All
-        </Button>
         {getFilters.map((item, index) => {
           return (
             <Button
-              variant="outline-primary"
+              variant={item === selectedFilter ? "primary" : "outline-primary"}
               className="filter-btn"
               key={index}
-              onClick={() => filterImageData(item)}
+              onClick={() => handleFilterClick(item)}
             >
               {item}
             </Button>

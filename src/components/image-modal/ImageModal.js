@@ -1,6 +1,7 @@
 import React from "react";
 import Modal from "react-bootstrap/Modal";
 import ImageSlider from "../image-slider/ImageSlider";
+import "./ImageModal.css";
 
 export default function ImageModal({
   show,
@@ -10,11 +11,11 @@ export default function ImageModal({
 }) {
   return (
     <Modal show={show} onHide={handleClose}>
-      <Modal.Body>
+      <Modal.Body className="image-container">
           <img
             src={selectedImage.img}
             alt="selected_img"
-            style={{ height: 200, width: "100%" }}
+            className="full-image"
           />
         <ImageSlider images={images} selectedImage={selectedImage} />
       </Modal.Body>

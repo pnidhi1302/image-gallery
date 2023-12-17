@@ -5,16 +5,13 @@ import GalleryHeader from "./components/gallery-header/GalleryHeader";
 import { useImagesData } from "./hooks/useImagesData";
 
 function App() {
-  const { imagesData, filterImageData, resetImageFilter } = useImagesData();
+  const { imagesData, filterImageData } = useImagesData();
 
   return (
     <div className="content-container">
       <h3>Gallery</h3>
       <span>{"PAGES -> GALLERY"}</span>
-      <GalleryHeader
-        filterImageData={filterImageData}
-        resetImageFilter={resetImageFilter}
-      />
+      <GalleryHeader filterImageData={filterImageData} />
       <ImagesGrid imagesData={imagesData} />
     </div>
   );
